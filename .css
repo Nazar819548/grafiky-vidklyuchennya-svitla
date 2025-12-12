@@ -1,0 +1,14 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  color: #333;
+  text-align: center;
+}
+
+#schedule {
+  margin: 20px auto;
+  padding: 10px;
+  background: white;
+  border: 1px solid #ccc;
+  width: 80%;
+}
