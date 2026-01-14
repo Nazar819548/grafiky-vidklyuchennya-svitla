@@ -1,14 +1,272 @@
 body {
   font-family: Arial, sans-serif;
-  background: #f4f4f4;
+  background: #f4f4f9;
+  margin: 0;
+  padding: 0;
   color: #333;
+}
+
+header {
+  background: #2c3e50;
+  color: white;
+  padding: 20px;
   text-align: center;
 }
 
-#schedule {
-  margin: 20px auto;
-  padding: 10px;
-  background: white;
+h1, h2 {
+  margin: 10px 0;
+}
+
+#search {
+  text-align: center;
+  margin: 20px;
+}
+
+#search input {
+  padding: 8px;
+  width: 300px;
   border: 1px solid #ccc;
-  width: 80%;
+  border-radius: 4px;
+}
+
+
+#search button {
+  padding: 8px 15px;
+  margin-top: 10px;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+#search button:hover {
+  transform: scale(1.1);
+  background: #2980b9;
+}
+
+#groups {
+  margin: 20px;
+}
+
+.group {
+  background: white;
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+}
+.group li {
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.group li:hover {
+  background: #f0f8ff;
+  transform: translateX(5px);
+}
+
+footer {
+  background: #2c3e50;
+  color: white;
+  text-align: center;
+  padding: 15px;
+}
+#suggestions {
+  margin-top: 5px;
+  background: #fff;
+  border: 1px solid #ccc;
+  max-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  border-radius: 4px;
+}
+
+#suggestions p {
+  margin: 0;
+  padding: 8px;
+  cursor: pointer;
+}
+
+#suggestions p:hover {
+  background: #f0f0f0;
+}
+.search-field {
+  position: relative;
+  margin: 10px auto;
+  width: 300px;
+}
+
+.search-field input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.suggestions p {
+  margin: 0;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.suggestions p:hover {
+  background: #f0f0f0;
+}
+#last-update {
+  text-align: center;
+  margin: 20px;
+}
+
+.updated {
+  font-size: 0.95em;
+  color: #555;
+  font-style: italic;
+}
+#about {
+      background: white;
+      width: 210mm;          
+      margin: 20px;          
+      padding: 30px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      border: 1px solid #ccc;
+      display: inline-block; 
+      vertical-align: top;
+    }
+
+    #about h2 {
+      margin-top: 0;
+      color: #2c3e50;
+      text-align: left;
+    }
+
+    #about p {
+      line-height: 1.6;
+      color: #444;
+      text-align: justify;
+    }
+
+    footer {
+      background: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+.group {
+  background: white;
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin: 20px;
+  border-radius: 6px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+header h1 {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px #3498db;
+  }
+  to {
+    text-shadow: 0 0 20px #2980b9;
+  }
+}
+nav {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+nav a {
+  margin-left: 15px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #3498db;
+}
+
+.back-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 8px 15px;
+  background: #3498db;
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.back-btn:hover {
+  background: #2980b9;
+}
+.main-menu {
+  text-align: center;
+  margin: 10px;
+}
+
+.main-menu .btn {
+  display: inline-block;
+  padding: 8px 15px;
+  margin: 5px;
+  background: #3498db;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.main-menu .btn:hover {
+  background: #2980b9;
+  transform: scale(1.05);
+}
+.page-title {
+  text-align: left;   
+  margin-left: 20px; 
+}
+.schedule-image {
+  text-align: center;  
+}
+
+.schedule-image img {
+  max-width: 100%;      
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+.developers {
+  background: #2c3e50;
+  color: white;
+  text-align: right;
+  padding: 15px;
 }
