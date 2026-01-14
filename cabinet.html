@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Особистий кабінет</title>
+  <style>
+    .hidden { display: none; }
+    .error { color: red; }
+    .success { color: green; }
+  </style>
+</head>
+<body>
+  <h1>Особистий кабінет</h1>
+
+
+  <section id="login-section">
+    <h2>Вхід</h2>
+    <input type="text" id="login" placeholder="Email"><br>
+    <input type="password" id="password" placeholder="Пароль"><br>
+    <button onclick="login()">Увійти</button>
+    <p id="login-message"></p>
+    <p>Немає акаунта? <a href="#" onclick="showRegister()">Створити</a></p>
+    <a href="index.html">⬅ Назад</a>
+  </section>
+
+  <section id="register-section" class="hidden">
+    <h2>Реєстрація</h2>
+    <input type="text" id="name" placeholder="Ім’я"><br>
+    <input type="text" id="reg-login" placeholder="Email"><br>
+    <input type="password" id="reg-password" placeholder="Пароль"><br>
+    <button onclick="register()">Зареєструватися</button>
+    <p id="register-message"></p>
+    <p>Вже маєте акаунт? <a href="#" onclick="showLogin()">Увійти</a></p>
+    <a href="index.html">⬅ Назад</a>
+  </section>
+
+  
+  <section id="profile-section" class="hidden">
+    <h2>Мій профіль</h2>
+    <p><b>Ім’я:</b> <span id="profile-name"></span></p>
+    <p><b>Email:</b> <span id="profile-email"></span></p>
+    <button onclick="logout()">Вийти</button>
+    <a href="index.html">⬅ Назад</a>
+  </section>
+
+  <script>
+    function showRegister() {
+      document.getElementById("login-section").classList.add("hidden");
+      document.getElementById("register-section").classList.remove("hidden");
+    }
+
+    function showLogin() {
+      document.getElementById("register-section").classList.add("hidden");
+      document.getElementById("login-section").classList.remove("hidden");
+    }
+
+    function register() {
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("reg-login").value.trim();
+      const password = document.getElementById("reg-password").value.trim();
+      const msg = document.getElementById("register-message");
+
+      if (!name || !email || !password) {
+        msg.textContent = "Заповніть усі поля!";
+        msg.className = "error";
+        return;
+      }
+
+      localStorage.setItem("user", JSON.stringify({ name, email, password }));
+      msg.textContent = "Акаунт створено! Тепер увійдіть.";
+      msg.className = "success";
+
+      setTimeout(showLogin, 1500);
+    }
+
+    function login() {
+      const email = document.getElementById("login").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const msg = document.getElementById("login-message");
+      const user = JSON.parse(localStorage.getItem("user"));
+
+      if (!user) {
+        msg.textContent = "Акаунт не знайдено. Зареєструйтесь!";
+        msg.className = "error";
+        return;
+      }
+
+      if (user.email === email && user.password === password) {
+        msg.textContent = "Вхід успішний!";
+        msg.className = "success";
+        setTimeout(showProfile, 1000);
+      } else {
+        msg.textContent = "Невірний логін або пароль!";
+        msg.className = "error";
+      }
+    }
+
+    function showProfile() {
+      const user = JSON.parse(localStorage.getItem("user"));
+      document.getElementById("login-section").classList.add("hidden");
+      document.getElementById("register-section").classList.add("hidden");
+      document.getElementById("profile-section").classList.remove("hidden");
+
+      document.getElementById("profile-name").textContent = user.name;
+      document.getElementById("profile-email").textContent = user.email;
+    }
+
+    function logout() {
+      document.getElementById("profile-section").classList.add("hidden");
+      document.getElementById("login-section").classList.remove("hidden");
+    }
+  </script>
+</body>
+</html>
