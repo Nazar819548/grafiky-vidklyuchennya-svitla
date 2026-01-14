@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Оплата онлайн</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .hidden { display: none; }
+    .success { color: green; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <header><h1>Оплата онлайн</h1></header>
+
+  <section id="paymentIntro">
+    <p>Тут можна здійснити оплату через інтегровану платіжну систему.</p>
+    <button class="btn" onclick="showPaymentForm()">Перейти до оплати</button>
+  </section>
+
+  
+  <section id="paymentForm" class="hidden">
+    <h2>Форма оплати</h2>
+    <form id="fakePayment">
+      <label>Номер картки:</label><br>
+      <input type="text" name="card" placeholder="0000 0000 0000 0000" required><br><br>
+
+      <label>Термін дії:</label><br>
+      <input type="text" name="expiry" placeholder="MM/YY" required><br><br>
+
+      <label>CVC:</label><br>
+      <input type="password" name="cvc" placeholder="123" required><br><br>
+
+      <button type="submit" class="btn">Оплатити</button>
+    </form>
+    <p id="paymentMessage"></p>
+  </section>
+
+  <footer><a href="index.html" class="back-btn">⬅ Назад</a></footer>
+
+  <script>
+    function showPaymentForm() {
+      document.getElementById("paymentIntro").classList.add("hidden");
+      document.getElementById("paymentForm").classList.remove("hidden");
+    }
+
+    document.getElementById("fakePayment").addEventListener("submit", function(event) {
+      event.preventDefault(); 
+      document.getElementById("paymentMessage").textContent = "✅ Оплата успішна! Дякуємо.";
+      document.getElementById("paymentMessage").className = "success";
+    });
+  </script>
+</body>
+</html>
