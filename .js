@@ -102,9 +102,14 @@ const streets = [
   "Ярослава Мудрого"
 ];
 
-function setupSuggestions(inputId, suggestionsId, dataList) {
+function setupSuggestions(inputId, suggestionsId, dataList, notFoundMessage) {
   const input = document.getElementById(inputId);
   const suggestionsBox = document.getElementById(suggestionsId);
+
+
+  input.addEventListener("focus", function() {
+    showAllSuggestions();
+  });
 
   input.addEventListener("input", function() {
     const value = this.value.toLowerCase();
@@ -112,53 +117,53 @@ function setupSuggestions(inputId, suggestionsId, dataList) {
 
     if (value.length > 0) {
       const matches = dataList.filter(item => item.toLowerCase().includes(value));
-      matches.forEach(match => {
+      if (matches.length > 0) {
+        matches.forEach(match => {
+          const p = document.createElement("p");
+          p.textContent = match;
+          p.onclick = () => {
+            input.value = match;
+            suggestionsBox.innerHTML = "";
+          };
+          suggestionsBox.appendChild(p);
+        });
+      } else {
         const p = document.createElement("p");
-        p.textContent = match;
-        p.onclick = () => {
-          input.value = match;
-          suggestionsBox.innerHTML = "";
-        };
+        p.textContent = notFoundMessage;
+        p.style.color = "red";
         suggestionsBox.appendChild(p);
-      });
+      }
+    } else {
+      showAllSuggestions();
     }
   });
-}
 
-setupSuggestions("cityInput", "citySuggestions", cities);
-setupSuggestions("streetInput", "streetSuggestions", streets);
-
-function searchSchedule() {
-  const city = document.getElementById("cityInput").value.toLowerCase();
-  const street = document.getElementById("streetInput").value.toLowerCase();
-
-  const groups = document.querySelectorAll(".group");
-
-  groups.forEach(group => {
-    const items = group.querySelectorAll("li");
-    let groupMatch = false;
-
-    items.forEach(item => {
-      const itemCity = item.getAttribute("data-city").toLowerCase();
-  
-      const itemStreet = item.getAttribute("data-street").toLowerCase();
-      const match =
-        (city === "" || itemCity.includes(city)) &&
-        (street === "" || itemStreet.includes(street));
-
-      if (match) {
-        item.style.display = "list-item";
-        groupMatch = true;
-      } else {
-        item.style.display = "none";
-      }
-    });
-
-    group.style.display = groupMatch ? "block" : "none";
+ 
+  document.addEventListener("click", function(e) {
+    if (!input.contains(e.target) && !suggestionsBox.contains(e.target)) {
+      suggestionsBox.innerHTML = "";
+    }
   });
+
+  function showAllSuggestions() {
+    suggestionsBox.innerHTML = "";
+    dataList.forEach(item => {
+      const p = document.createElement("p");
+      p.textContent = item;
+      p.onclick = () => {
+        input.value = item;
+        suggestionsBox.innerHTML = "";
+      };
+      suggestionsBox.appendChild(p);
+    });
+  }
 }
 
-function refreshScheduleFromOblenergo() {
+
+setupSuggestions("cityInput", "citySuggestions", cities, "Місто не знайдено");
+setupSuggestions("streetInput", "streetSuggestions", streets, "Вулицю не знайдено");
+function refreshScheduleFromOblenergo()
+ {
   const scheduleBox = document.querySelector("#schedule-text");
   if (scheduleBox) {
     fetch("https://poweron.loe.lviv.ua/#:~:text=%D0%93%D1%80%D0%B0%D1%84%D1%96%D0%BA%20%D0%BF%D0%BE%D0%B3%D0%BE%D0%B4%D0%B8%D0%BD%D0%BD%D0%B8%D1%85%20%D0%B2%D1%96%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D1%8C%20%D0%BD%D0%B0%2012.01.2026,00%2C%20%D0%B7%2019%3A00%20%D0%B4%D0%BE%2022%3A30.") // приклад URL
